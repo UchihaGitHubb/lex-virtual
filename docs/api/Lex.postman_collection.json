@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "4d32bf4b-abec-489f-bcd7-66e80296cf97",
+		"name": "Lex",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31339135"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"juan@email.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://[::1]:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"[::1]"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"juan2@email.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://[::1]:3000/auth/register",
+							"protocol": "http",
+							"host": [
+								"[::1]"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Who Am I",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWQ4NDUxOC1hZDNkLTQyZmYtYjdmYy1jMDI2YmY5ODA1MTciLCJlbWFpbCI6Imp1YW4yQGVtYWlsLmNvbSIsInJvbGUiOm51bGwsInJvbGVDb25maXJtZWQiOmZhbHNlLCJpYXQiOjE3NTk0NTQ1MzMsImV4cCI6MTc1OTQ1ODEzM30.oov1K0epG0oEOVX5TeiH4NeoQE8LL7qwGBBICcF9jzg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://[::1]:3000/auth/whoami",
+							"protocol": "http",
+							"host": [
+								"[::1]"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"whoami"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Role - Select",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3YzQ3NWRjMS0yYjhjLTQ4NTEtYWY3OC0wNDZiYWFmMjViNTIiLCJlbWFpbCI6Imp1YW5AZW1haWwuY29tIiwicm9sZSI6bnVsbCwicm9sZUNvbmZpcm1lZCI6ZmFsc2UsImlhdCI6MTc1OTQ1NjMxMiwiZXhwIjoxNzU5NDU5OTEyfQ.fJMvd5M7scXWc5vq0B3FmRtqNSi7x3hqS74W3fngN0E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"teacher\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://[::1]:3000/users/role/select",
+							"protocol": "http",
+							"host": [
+								"[::1]"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"role",
+								"select"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Role - Confirm",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3YzQ3NWRjMS0yYjhjLTQ4NTEtYWY3OC0wNDZiYWFmMjViNTIiLCJlbWFpbCI6Imp1YW5AZW1haWwuY29tIiwicm9sZSI6bnVsbCwicm9sZUNvbmZpcm1lZCI6ZmFsc2UsImlhdCI6MTc1OTQ1NjMxMiwiZXhwIjoxNzU5NDU5OTEyfQ.fJMvd5M7scXWc5vq0B3FmRtqNSi7x3hqS74W3fngN0E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://[::1]:3000/users/role/confirm",
+							"protocol": "http",
+							"host": [
+								"[::1]"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"role",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
