@@ -2,7 +2,7 @@ import { Controller, Post, Body, Req, UseGuards, Put } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { User, UserRole } from './entities/user.entity';
-import { WhoAmI } from '../auth/strategies/who-am-i.interface';
+import { WhoAmI } from '../auth/dtos/who-am-i.dto';
 import { IsEnum } from 'class-validator';
 
 // DTO para seleccionar rol

@@ -10,7 +10,7 @@ import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
 import { LoginDto, RegisterDto } from './dtos';
-import { WhoAmI } from './strategies/who-am-i.interface';
+import { WhoAmI } from './dtos/who-am-i.dto';
 
 @Injectable()
 export class AuthService {
