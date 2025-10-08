@@ -2,6 +2,7 @@ import { join } from 'path';
 
 export default () => ({
   port: parseInt(process.env.PORT || '3000', 10),
+
   database: {
     type: 'postgres',
     host: process.env.DB_HOST,
@@ -14,6 +15,7 @@ export default () => ({
     synchronize: true,
     logging: true,
   },
+
   jwt: {
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES,
