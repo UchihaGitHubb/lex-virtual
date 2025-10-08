@@ -1,2 +1,2 @@
 # lex-virtual
-Web lex virtual
+Backend de lex virtual
