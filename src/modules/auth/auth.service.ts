@@ -9,7 +9,13 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
-import { LoginDto, RegisterDto, WhoAmI } from './dtos';
+import {
+  LoginDto,
+  RegisterDto,
+  WhoAmI,
+  RegisterResponseDto,
+  LoginResponseDto,
+} from './dtos';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +35,7 @@ export class AuthService {
     };
   }
 
-  public async register(dto: RegisterDto) {
+  public async register(dto: RegisterDto): Promise<RegisterResponseDto> {
     // Verificar si el usuario ya existe
     const existingUser = await this.usersService.findByEmail(dto.email);
     if (existingUser) {
@@ -46,14 +52,20 @@ export class AuthService {
     const hash = await bcrypt.hash(dto.password, saltRounds);
 
     // Crear el usuario
-    const user = await this.usersService.create(dto.email, hash);
+    const user = await this.usersService.create(dto.email, hash, dto.role);
 
     // Generar token JWT
     const token = this.jwt.sign(this.getPayload(user));
 
     return {
       message: 'Usuario registrado exitosamente',
-      access_token: token,
+      accessToken: token,
+      user: {
+        id: user.id,
+        email: user.email,
+        role: user.role || null,
+        roleConfirmed: user.roleConfirmed,
+      },
     };
   }
 
@@ -69,10 +81,10 @@ export class AuthService {
     ) {
       return user;
     }
-    return null;
+    throw new UnauthorizedException('Credenciales inválidas');
   }
 
-  public async login(dto: LoginDto) {
+  public async login(dto: LoginDto): Promise<LoginResponseDto> {
     // Validar que los campos no estén vacíos
     if (!dto.email || !dto.password) {
       throw new BadRequestException('Email y contraseña son requeridos');
@@ -89,7 +101,13 @@ export class AuthService {
 
     return {
       message: 'Login exitoso',
-      access_token: token,
+      accessToken: token,
+      user: {
+        id: user!.id,
+        email: user!.email,
+        role: user!.role || null,
+        roleConfirmed: user!.roleConfirmed,
+      },
     };
   }
 

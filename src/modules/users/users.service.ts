@@ -15,8 +15,8 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  public async create(email: string, passwordHash: string) {
-    const user = this.userRepository.create({ email, passwordHash });
+  public async create(email: string, passwordHash: string, role: UserRole) {
+    const user = this.userRepository.create({ email, passwordHash, role });
     return this.userRepository.save(user);
   }
 
