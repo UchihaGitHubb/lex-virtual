@@ -20,4 +20,9 @@ export default () => ({
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES,
   },
+
+  upload: {
+    path: process.env.UPLOAD_PATH || 'uploads',
+    baseUrl: process.env.UPLOAD_BASE_URL || 'http://localhost:3000',
+  },
 });

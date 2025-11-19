@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -16,7 +17,13 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
-  await app.listen(configService.get<number>('PORT') || 3000);
+  // Servir archivos estáticos desde la carpeta uploads
+  const uploadPath = configService.get<string>('upload.path') || 'uploads';
+  app.useStaticAssets(join(process.cwd(), uploadPath), {
+    prefix: '/uploads/',
+  });
+
+  await app.listen(configService.get<number>('port') || 3000);
   const url = await app.getUrl();
   console.log(`🚀 El servicio está corriendo en: ${url}`);
 }
