@@ -6,6 +6,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { TrackingModule } from './modules/tracking/tracking.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { GroupsModule } from './modules/groups/groups.module';
+import { StudentsModule } from './modules/students/students.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -23,6 +24,7 @@ import configuration from './config/configuration';
     TrackingModule,
     UploadModule,
     GroupsModule,
+    StudentsModule,
   ],
 })
 export class AppModule {}

@@ -4,13 +4,11 @@ import {
   ConflictException,
   BadRequestException,
   ForbiddenException,
-  NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
-import { User, UserRole } from '../users/entities/user.entity';
-import { GroupsService } from '../groups/groups.service';
+import { User } from '../users/entities/user.entity';
 import {
   LoginDto,
   RegisterDto,
@@ -24,7 +22,6 @@ export class AuthService {
   constructor(
     private jwt: JwtService,
     private usersService: UsersService,
-    private groupsService: GroupsService,
   ) {}
 
   public async whoAmI(user: WhoAmI): Promise<WhoAmI> {
@@ -50,34 +47,12 @@ export class AuthService {
       throw new BadRequestException('Email y contraseña son requeridos');
     }
 
-    // HU_6.4.2: Si es estudiante y tiene código de grupo, validarlo
-    if (dto.role === UserRole.Student && dto.groupCode) {
-      try {
-        await this.groupsService.validateGroupCode(dto.groupCode);
-      } catch (error) {
-        if (error instanceof NotFoundException) {
-          throw new BadRequestException('Este código no existe');
-        }
-        throw error;
-      }
-    }
-
     // Encriptar la contraseña
     const saltRounds = 10;
     const hash = await bcrypt.hash(dto.password, saltRounds);
 
     // Crear el usuario
     const user = await this.usersService.create(dto.email, hash, dto.role);
-
-    // HU_6.4.2: Si es estudiante y tiene código de grupo, vincularlo automáticamente
-    if (dto.role === UserRole.Student && dto.groupCode) {
-      try {
-        await this.groupsService.joinGroup({ code: dto.groupCode }, user.id);
-      } catch (error) {
-        // Si falla la vinculación, no impedimos el registro pero lo registramos
-        console.error('Error al vincular estudiante al grupo:', error);
-      }
-    }
 
     // Generar token JWT
     const token = this.jwt.sign(this.getPayload(user));

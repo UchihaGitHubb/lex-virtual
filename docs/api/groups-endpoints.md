@@ -169,31 +169,9 @@ Obtiene la información del grupo al que pertenece el usuario actual.
 null
 ```
 
-## Registro con Código de Grupo
+## Nota sobre Registro
 
-Durante el registro, los estudiantes pueden proporcionar un código de grupo que se validará y vinculará automáticamente.
-
-**POST** `/auth/register`
-
-**Body:**
-```json
-{
-  "email": "estudiante@example.com",
-  "password": "password123",
-  "role": "student",
-  "groupCode": "12345678" // Opcional
-}
-```
-
-**Flujo:**
-1. Si se proporciona un `groupCode`, se valida antes de crear el usuario
-2. Si el código no existe, se retorna error: "Este código no existe"
-3. Si el código es válido, se crea el usuario
-4. El estudiante se vincula automáticamente al grupo
-
-**Errores posibles:**
-- `400 Bad Request`: Si el código no existe (mensaje: "Este código no existe")
-- `409 Conflict`: Si el email ya está registrado
+Los estudiantes se registran desde Unity (VR APP). El registro en la web está disponible solo para profesores.
 
 ## Características del Código de Grupo
 
