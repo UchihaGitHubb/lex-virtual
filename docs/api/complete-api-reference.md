@@ -28,9 +28,13 @@ Registra un nuevo usuario (estudiante o profesor).
 {
   "email": "usuario@example.com",
   "password": "password123",
-  "role": "student" // o "teacher"
+  "role": "student", // o "teacher"
+  "firstName": "Juan", // Opcional: nombre del usuario
+  "lastName": "Pérez" // Opcional: apellido del usuario
 }
 ```
+
+**Nota:** Los campos `firstName` y `lastName` son opcionales, pero se recomienda incluirlos especialmente para estudiantes, ya que el profesor los verá en la lista de estudiantes.
 
 **Respuesta:**
 ```json

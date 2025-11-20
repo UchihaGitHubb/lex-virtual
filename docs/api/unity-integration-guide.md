@@ -44,6 +44,8 @@ public class RegisterRequest
     public string email;
     public string password;
     public string role = "student";
+    public string firstName; // Opcional: nombre del estudiante
+    public string lastName; // Opcional: apellido del estudiante
 }
 
 [System.Serializable]
@@ -67,13 +69,15 @@ public class AuthManager : MonoBehaviour
 {
     private string authToken;
     
-    public IEnumerator Register(string email, string password)
+    public IEnumerator Register(string email, string password, string firstName = null, string lastName = null)
     {
         RegisterRequest request = new RegisterRequest
         {
             email = email,
             password = password,
-            role = "student"
+            role = "student",
+            firstName = firstName,
+            lastName = lastName
         };
         
         string jsonData = JsonUtility.ToJson(request);

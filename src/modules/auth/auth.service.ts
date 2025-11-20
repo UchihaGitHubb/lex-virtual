@@ -52,7 +52,13 @@ export class AuthService {
     const hash = await bcrypt.hash(dto.password, saltRounds);
 
     // Crear el usuario
-    const user = await this.usersService.create(dto.email, hash, dto.role);
+    const user = await this.usersService.create(
+      dto.email,
+      hash,
+      dto.role,
+      dto.firstName,
+      dto.lastName,
+    );
 
     // Generar token JWT
     const token = this.jwt.sign(this.getPayload(user));
